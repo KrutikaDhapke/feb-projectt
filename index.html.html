@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>1 Month Anniversary</title>
+
+<style>
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:linear-gradient(135deg,#ff758c,#ff7eb3);
+  color:white;
+  text-align:center;
+  display:flex;
+  justify-content:center;
+  align-items:flex-start;
+  overflow-x:hidden;
+  overflow-y:auto; 
+  padding:20px 0;
+}
+
+.page{
+  display:none;
+  max-width:600px;
+  padding:20px;
+  margin:auto;
+}
+
+.active{
+  display:block;
+}
+
+button{
+  padding:12px 25px;
+  font-size:18px;
+  border:none;
+  border-radius:25px;
+  background:white;
+  color:#ff4081;
+  cursor:pointer;
+}
+
+h1{font-size:40px; word-wrap:break-word;}
+p{font-size:20px; word-wrap:break-word; line-height:1.5;}
+
+.heart{
+  position:absolute;
+  font-size:28px;
+  animation: float 6s linear infinite;
+}
+
+@keyframes float{
+  0%{transform:translateY(100vh);}
+  100%{transform:translateY(-120vh);}
+}
+
+.confetti {
+  position:fixed;
+  width:10px;
+  height:10px;
+  background:yellow;
+  top:0;
+  animation: confettiFall 3s linear forwards;
+  z-index:999;
+}
+
+@keyframes confettiFall {
+  0%{transform:translateY(0) rotate(0deg);}
+  100%{transform:translateY(100vh) rotate(360deg);}
+}
+</style>
+</head>
+
+<body>
+
+<!-- Background Music -->
+<audio id="music" loop>
+  <source src="sangrahiyo.mp3" type="audio/mpeg">
+</audio>
+
+<!-- Page 0: Start -->
+<div id="page0" class="page active">
+  <h1>💌 A Small Surprise</h1>
+  <p>Click below to start</p>
+  <button onclick="startStory()">Start ❤️</button>
+</div>
+
+<!-- Page 1: Happy 1 Month -->
+<div id="page1" class="page">
+  <h1>❤️ Happy 1 Month</h1>
+  <p>It's been one amazing month with you.</p>
+</div>
+
+<!-- Page 2: Every Moment -->
+<div id="page2" class="page">
+  <h1>🌸 Every Moment</h1>
+  <p>Every moment with you makes my life better.</p>
+</div>
+
+<!-- Page 3: Thank You -->
+<div id="page3" class="page">
+  <h1>💖 Thank You</h1>
+  <p>Thank you for all the love and memories.</p>
+</div>
+
+<!-- Page 4: Our Story -->
+<div id="page4" class="page">
+  <h1>💌 Our Story</h1>
+  <p><b>December</b> – First Meeting ✨</p>
+  <p>Last week of December – small goodbye</p>
+  <p>3 January – reunion 💫</p>
+  <p>27 January – indirect confession 🤍</p>
+  <p>Every Thursday – fights at friends 😅</p>
+  <p>9 February – you confessed, I acted normal 💭</p>
+  <p>11 February – "What are we?" conversation 🤔</p>
+  <p>13 February – trial phase started 🌸</p>
+  <p>14 February – relationship started ❤️</p>
+  <p>February – complete month 🥰</p>
+  <button onclick="goToPage5()">Next 👉</button>
+</div>
+
+<!-- Page 5: Click to See Final Message -->
+<div id="page5" class="page">
+  <h1>💞 Almost There 💞</h1>
+  <p>Click below to see my special message for you ❤️</p>
+  <button onclick="showFinalMessage()">Click Me 💌</button>
+</div>
+
+<!-- Page 6: Final Heartfelt Desi Message -->
+<div id="page6" class="page">
+  <h1>💖 Sang Rahiyo… Always 💖</h1>
+  <div id="finalText"></div>
+  <p style="font-size:18px;">
+    Thank you for being meri zindagi ka special hissa.  
+    Happy One Month Anniversary, meri jaan! 😘
+  </p>
+  <p style="margin-top:20px;">— <i>Yours forever ❤️</i></p>
+</div>
+
+<!-- Floating Hearts -->
+<div class="heart" style="left:10%">❤️</div>
+<div class="heart" style="left:30%; animation-delay:2s;">❤️</div>
+<div class="heart" style="left:60%; animation-delay:4s;">❤️</div>
+<div class="heart" style="left:80%; animation-delay:1s;">❤️</div>
+
+<script>
+let current = 1;
+let page4Timeout, page5Timeout;
+
+function startStory(){
+    document.getElementById("music").play();
+    showPage(current);
+
+    // Auto-interval till Page 4
+    let interval = setInterval(()=>{
+        current++;
+        if(current > 4){
+            clearInterval(interval);
+            setupPage4Timeout();
+            return;
+        }
+        showPage(current);
+    },3000);
+}
+
+function showPage(num){
+    let pages = document.querySelectorAll(".page");
+    pages.forEach(p => p.classList.remove("active"));
+    document.getElementById("page"+num).classList.add("active");
+}
+
+// Page 4 timeout
+function setupPage4Timeout(){
+    page4Timeout = setTimeout(goToPage5,15000);
+}
+
+// Go to Page 5
+function goToPage5(){
+    clearTimeout(page4Timeout);
+    showPage(5);
+    setupPage5Timeout();
+}
+
+// Page 5 timeout
+function setupPage5Timeout(){
+    page5Timeout = setTimeout(showFinalMessage,15000);
+}
+
+// Show final message
+function showFinalMessage(){
+    clearTimeout(page5Timeout);
+    showPage(6);
+    animateFinalText();
+}
+
+// Animate final message
+function animateFinalText(){
+    const text = `From random meetings to becoming "us"...  
+I never expected this journey to mean so much. Our deep convo and our fights like me yelling at you and you doing same, but in the end we both came here to find each other or should I say our 'peaceful place'.  
+We literally talk for so long that most of the time I forget you're not here, and you also know I don't remember the time difference, but UK I still remember the first time we met. We were not this—I mean we were different—but we both don't know when we changed.  
+While saying we are opposite, we became so same, like we don’t need to say things to make each other understand. Ahhh, I have many things to say to this cute old man, but I will on call now just this much.  
+UK our usual thoda drama, thodi fights, thodi hasi…  
+but honestly, I wouldn't change a single moment with you. ❤️`;
+
+    const finalDiv = document.getElementById("finalText");
+    finalDiv.innerHTML = "";
+    let lines = text.split("\n");
+    let index = 0;
+
+    function showNextLine(){
+        if(index >= lines.length) return;
+        const p = document.createElement("p");
+        p.innerText = lines[index];
+        finalDiv.appendChild(p);
+        index++;
+        createConfetti();
+        setTimeout(showNextLine, 1200);
+    }
+
+    showNextLine();
+}
+
+// Confetti effect
+function createConfetti(){
+    const conf = document.createElement("div");
+    conf.classList.add("confetti");
+    conf.style.left = Math.random()*100 + "vw";
+    conf.style.background = `hsl(${Math.random()*360}, 100%, 50%)`;
+    document.body.appendChild(conf);
+    setTimeout(()=> conf.remove(),3000);
+}
+</script>
+
+</body>
+</html>
